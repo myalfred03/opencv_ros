@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+<node name="uvc_camera_node" pkg="uvc_camera" type="uvc_camera_node" output="screen">
+   <remap from="/image_raw" to="camera/rgb/image_color" />
+ <!--   <param name="device" value="_device:=/dev/video0" />-->
+    <param name="width" value="320" />
+    <param name="height" value="240" />
+    <param name="frame_rate" value="10" />
+    <param name="exposure" value="0" />
+    <param name="gain" value="100" /> 
+</node>
+ <!--  -->
+ 	<node name="republish" type="republish" pkg="image_transport" output="screen"  args="compressed in:=/camera/rgb/image_color raw out:=/image_raw" /> 
+
+</launch>
