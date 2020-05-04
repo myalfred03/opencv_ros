@@ -51,8 +51,10 @@ class LaneDetector:
                 ret, frame = self.cap.read()
                 blur = deNoise(frame)
                 gray_image = edgeDetector(blur)
+                mask_image = mask(gray_image)
+                lines = houghLines(mask_image)
                # canny_image = cv2.Canny(gray_image, 160, 210)
-                self.video_pub.publish(self.bridge.cv2_to_imgmsg(gray_image, "8UC1")) #8UC1   bgr8
+                self.video_pub.publish(self.bridge.cv2_to_imgmsg(lines, "8UC1")) #8UC1   bgr8
                 #if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         except CvBridgeError as e:
